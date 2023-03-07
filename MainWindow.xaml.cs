@@ -23,8 +23,6 @@ namespace Todos
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        Supabase
         public MainWindow()
         {
             InitializeComponent();
