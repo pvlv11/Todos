@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todos"
         mc:Ignorable="d"
-        Title="Todos" Height="400" Width="600">
+        Title="Todos" Height="400" Width="600" Loaded="Window_Loaded" Closed="Window_Closed">
+
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -19,11 +20,21 @@
         </Grid.ColumnDefinitions>
 
         <Label>TODOS</Label>
-        <ListBox Grid.Row="1" x:Name="lstTodos"/>
+        <ListBox Grid.Row="1" x:Name="lstTodos" ItemsSource="{Binding _todos}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}"/>
+                        <Button x:Name="btnDeleteTodo" Content="X" Click="btnDeleteTodo_Click"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
             <TextBox x:Name="txtName"/>
             <Button x:Name="btnAdd" Margin="0,5,0,0" Click="ButtonAddTodo_Click">Add list entry</Button>
+            <Button x:Name="btnTest" Margin="0,5,0,0" Content="Provide apikey" Click="btnTest_Click"/>
         </StackPanel>
 
     </Grid>
