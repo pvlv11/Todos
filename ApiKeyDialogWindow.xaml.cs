@@ -19,7 +19,8 @@ namespace Todos
     /// </summary>
     public partial class ApiKeyDialogWindow : Window
     {
-        public static String myApikey;
+        public static string myApikey;
+        public static string myUrl;
         public ApiKeyDialogWindow()
         {
             InitializeComponent();
@@ -28,7 +29,9 @@ namespace Todos
         private void btnSaveApikey_Click(object sender, RoutedEventArgs e)
         {
             myApikey = passwordBoxApikey.Password;
+            myUrl = textBoxUrl.Text;
             this.Close();
+            MainWindow.FetchTodos();
         }
     }
 }
