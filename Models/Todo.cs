@@ -15,7 +15,7 @@ namespace Todos.Models
         [PrimaryKey("id", false)]
         public int Id { get; set; }
 
-        [Column("created_at")]
+        [Column("created_at", IgnoreOnInsert = true, IgnoreOnUpdate = true)]
         public DateTime CreatedAt { get; set;}
 
         [Column("todo")]
