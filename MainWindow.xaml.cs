@@ -115,6 +115,8 @@ namespace Todos
             Trace.WriteLine(_key);
         }
 
+
+
         private async void btnDeleteTodo_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;

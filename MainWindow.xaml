@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Todos"
         mc:Ignorable="d"
-        Title="Todos" Height="400" Width="600" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="Todos" Height="400" Width="600" Loaded="Window_Loaded">
 
     <Grid Margin="10">
 
