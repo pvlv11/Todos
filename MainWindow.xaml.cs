@@ -22,9 +22,11 @@ namespace Todos
     public partial class MainWindow : Window
     {
         private static Supabase.Client client;
-        private static String _url = Settings.Default.url;
-        private static String _key = Settings.Default.apikey;
-        private static ObservableCollection<String> _todos = new ObservableCollection<String>();
+        private static String _url;
+        private static String _key;
+        private static string test1;
+        private static string test2;
+        private static ObservableCollection<String> _todos = new();
         IConfiguration Configuration { get; set; }
 
         public MainWindow()
@@ -33,6 +35,13 @@ namespace Todos
             Configuration = builder.Build();
             _url = Configuration["url"];
             _key = Configuration["apikey"];
+
+            if (string.IsNullOrEmpty(_url) || string.IsNullOrEmpty(_key))
+            {
+                _url = Environment.GetEnvironmentVariable("url", EnvironmentVariableTarget.User);
+                _key = Environment.GetEnvironmentVariable("apikey", EnvironmentVariableTarget.User);
+
+            }
 
             InitializeComponent();
         }
@@ -50,8 +59,8 @@ namespace Todos
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             lstTodos.ItemsSource = _todos;
+
             if (String.IsNullOrEmpty(_url))
             {
                 ApiKeyDialogWindow modalWindow = new ApiKeyDialogWindow();
@@ -59,8 +68,8 @@ namespace Todos
 
                 _key = ApiKeyDialogWindow.myApikey;
                 _url = ApiKeyDialogWindow.myUrl;
-                Configuration["apikey"] = _key;
-                Configuration["url"] = _url;
+                Environment.SetEnvironmentVariable("apikey", _key, EnvironmentVariableTarget.User);
+                Environment.SetEnvironmentVariable("url", _url, EnvironmentVariableTarget.User);
             }
 
             if (String.IsNullOrEmpty(_key))
@@ -70,8 +79,8 @@ namespace Todos
 
                 _key = ApiKeyDialogWindow.myApikey;
                 _url = ApiKeyDialogWindow.myUrl;
-                Configuration["apikey"] = _key;
-                Configuration["url"] = _url;
+                Environment.SetEnvironmentVariable("apikey", _key, EnvironmentVariableTarget.User);
+                Environment.SetEnvironmentVariable("url", _url, EnvironmentVariableTarget.User);
             }
 
             InitSupabase();
@@ -100,7 +109,7 @@ namespace Todos
                     }
                 };
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Could not fetch data, please try again.", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error, MessageBoxResult.OK);
             }
@@ -127,6 +136,12 @@ namespace Todos
                 _todos.Remove(todoText);
             }
             FetchTodos();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Environment.SetEnvironmentVariable("apikey", _key, EnvironmentVariableTarget.User);
+            Environment.SetEnvironmentVariable("url", _url, EnvironmentVariableTarget.User);
         }
     }
 }
