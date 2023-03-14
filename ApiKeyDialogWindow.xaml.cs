@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Todos;
 
 namespace Todos
 {
@@ -28,8 +29,8 @@ namespace Todos
 
         private void btnSaveApikey_Click(object sender, RoutedEventArgs e)
         {
-            myApikey = passwordBoxApikey.Password;
-            myUrl = textBoxUrl.Text;
+            Todos.MainWindow._key = passwordBoxApikey.Password;
+            Todos.MainWindow._url = textBoxUrl.Text;
             this.Close();
             MainWindow.FetchTodos();
         }
