@@ -22,10 +22,8 @@ namespace Todos
     public partial class MainWindow : Window
     {
         private static Supabase.Client client;
-        private static String _url;
-        private static String _key;
-        private static string test1;
-        private static string test2;
+        public static String _url;
+        public static String _key;
         private static ObservableCollection<String> _todos = new();
         IConfiguration Configuration { get; set; }
 
@@ -84,7 +82,6 @@ namespace Todos
             }
 
             InitSupabase();
-            FetchTodos();
 
         }
 
@@ -93,6 +90,7 @@ namespace Todos
             var options = new SupabaseOptions { AutoConnectRealtime = true };
             client = new Supabase.Client(_url, _key, options);
             await client.InitializeAsync();
+            FetchTodos();
         }
 
         public static async void FetchTodos()
